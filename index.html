@@ -17,14 +17,36 @@
   <script type="text/babel">
     const root = document.getElementById("root");
     function App() {
-      let [counter, setCounter] = React.useState(23);
+      //useStat의 결과값 배열에서 첫번째는 데이터이다.
+      //두번째는 값이 바뀌었을때 리랜더링시 작동할 함수이다..
+      const [minutes, setMinutes] = React.useState(0);
+      const onChange = (eventData) => {
+        setMinutes(eventData.target.value);
+      };
       const onClick = () => {
-        setCounter(counter + 1);
+        setMinutes(0);
       };
       return (
         <div>
-          <h3>Total Click: {counter}</h3>
-          <button onClick={onClick}>Click me</button>
+          <h3 className='hi'>Super Converter</h3>
+          <div>
+            <label htmlFor='minutes'>Minutes</label>
+            <input
+              value={minutes}
+              placeholder='Mintes'
+              type='number'
+              onChange={onChange}
+            ></input>
+          </div>
+          <div>
+            <label htmlFor='hours'>Hours</label>
+            <input
+              value={Math.round(minutes / 60)}
+              placeholder='Hours'
+              type='number'
+            ></input>
+          </div>
+          <button onClick={onClick}>Reset</button>
         </div>
       );
     }
