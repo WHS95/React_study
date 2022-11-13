@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <!--interactive하게 만들어 준다. -->
+  <script
+    src="https://unpkg.com/react@18/umd/react.development.js"
+    crossorigin
+  ></script>
+  <!-- reactDom은 react element를 가져다가 html로 바꾸는 역할을 한다. -->
+  <script
+    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    crossorigin
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function Btn({ text, onClick }) {
+      console.log(text);
+      return (
+        <button
+          onClick={onClick}
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
+    function ConfirmBtn() {
+      return <button>Confirm</button>;
+    }
+    const MemorizedBtn = React.memo(Btn);
+    //React에게 변경된사항이 없는 props변경이 없다면 굳이 한번더 렌더링 하지않아도됢을 알려줌
+    function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
+      return (
+        <div>
+          <MemorizedBtn text={value} onClick={changeValue} />
+          <MemorizedBtn text='continue' />
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
